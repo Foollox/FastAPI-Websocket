@@ -14,18 +14,18 @@ Run:
 - `uvicorn main:app --workers 4` (multi-worker, don't work graceful shutdown because uvicorn killed children before they can recieve SIGTERM/SIGINT )
 
 Endpoints:
-- `/ws` (WebSocket): connect with any client, get a message every 10s. To broadcast, send a message starting with `/BS` (e.g., `/BS your message`). Other messages are not broadcast.
+- `/ws` (WebSocket): connect with any client, get a message every 10s.
 - `/broadcast` (POST): send a message to all clients (try with curl or Postman)
-    POST http://localhost:8000/broadcast
-    Body (JSON):
-    {
-        "message": "Your message here"
-    }
 
 Testing:
 - Use browser JS, Postman, or `websocat` for WebSocket
 - Open a couple clients, send a message from one, all should see it
 - POST to `/broadcast` to test manual broadcast
+    POST http://localhost:8000/broadcast
+    Body (JSON):
+    {
+        "message": "Your message here"
+    }
 
 Redis Implementation:
 - Connection state and broadcasts are shared across all workers using Redis
